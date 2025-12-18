@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./theme.css";
 import "./responsive.css";
 
@@ -19,11 +19,16 @@ function App() {
   const [sortOrder, setSortOrder] = useState("asc");
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // ADDED
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
 
   const API_BASE = import.meta.env.VITE_API_URL;
+
+  /* SCROLL REFS */
+  const chartsRef = useRef(null);
+  const summaryRef = useRef(null);
 
   /* ---------- LOAD STATES ---------- */
   useEffect(() => {
@@ -59,6 +64,7 @@ function App() {
     setCurrentPage(1);
     setShowCharts(false);
     setShowAI(false);
+    setLoading(true); // START LOADER
 
     let url = `${API_BASE}/api/data?`;
     if (stateName) url += `state=${encodeURIComponent(stateName)}&`;
@@ -67,8 +73,16 @@ function App() {
 
     fetch(url)
       .then((res) => res.json())
-      .then(setData)
-      .catch(() => setError("Failed to fetch data"));
+      .then((result) => {
+        setData(result);
+        setTimeout(() => {
+          summaryRef.current?.scrollIntoView({ behavior: "smooth" });
+        }, 150);
+      })
+      .catch(() => setError("Failed to fetch data"))
+      .finally(() => {
+        setLoading(false); //  STOP LOADER
+      });
   };
 
   /* ---------- RESET ---------- */
@@ -81,6 +95,7 @@ function App() {
     setCurrentPage(1);
     setShowCharts(false);
     setShowAI(false);
+    setLoading(false);
   };
 
   /* ---------- SAFE DISPLAY ---------- */
@@ -101,12 +116,7 @@ function App() {
     return "";
   };
 
-  /* ---------- PAGINATION ---------- */
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const paginatedData = data.slice(startIndex, startIndex + rowsPerPage);
-  const totalPages = Math.ceil(data.length / rowsPerPage);
-
-  /* ---------- DOWNLOAD CSV ---------- */
+  /* ---------- CSV DOWNLOAD ---------- */
   const handleDownload = () => {
     if (!data.length) return;
 
@@ -126,36 +136,37 @@ function App() {
     link.click();
   };
 
-  /* ---------- AI SUMMARY DATA ---------- */
-  const totals = data.reduce(
-    (acc, row) => {
-      acc.sc += Number(row["SC Persondays"] || 0);
-      acc.st += Number(row["ST Persondays"] || 0);
-      acc.women += Number(row["Women Persondays"] || 0);
-      return acc;
-    },
-    { sc: 0, st: 0, women: 0 }
-  );
-
-  const summaryData = {
-    state: stateName || "All",
-    district: districtName || "All",
-    totalRecords: data.length,
-    scPersondays: totals.sc,
-    stPersondays: totals.st,
-    womenPersondays: totals.women,
-  };
+  /* ---------- PAGINATION ---------- */
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const paginatedData = data.slice(startIndex, startIndex + rowsPerPage);
+  const totalPages = Math.ceil(data.length / rowsPerPage);
 
   return (
     <div className={darkMode ? "dark app-wrapper" : "app-wrapper"}>
       {/* NAVBAR */}
-      <div className="navbar">
+      <div className="navbar sticky-navbar">
         <div className="brand">MGNREGA Dashboard</div>
 
         <div style={{ display: "flex", gap: "12px" }}>
           {data.length > 0 && (
             <>
-              <button onClick={() => setShowCharts(!showCharts)}>📊 Charts</button>
+              {/*  CHART BUTTON – ORIGINAL BEHAVIOR PRESERVED */}
+              <button
+                onClick={() => {
+                  const next = !showCharts;
+                  setShowCharts(next);
+                  if (next) {
+                    setTimeout(() => {
+                      chartsRef.current?.scrollIntoView({
+                        behavior: "smooth",
+                      });
+                    }, 150);
+                  }
+                }}
+              >
+                📊 Charts
+              </button>
+
               <button onClick={() => setShowAI(true)}>🤖 Ask AI</button>
             </>
           )}
@@ -218,10 +229,19 @@ function App() {
             </select>
           </div>
 
-          <button type="submit" className="search-btn">Search</button>
+          {/*  ONLY CHANGE: DISABLE SEARCH WHILE LOADING */}
+          <button
+            type="submit"
+            className="search-btn"
+            disabled={loading}
+          >
+            {loading ? "Searching..." : "Search"}
+          </button>
+
           <button type="button" className="reset-btn" onClick={handleReset}>
             Reset
           </button>
+
           <button
             type="button"
             className="search-btn"
@@ -232,27 +252,42 @@ function App() {
           </button>
         </form>
 
+        {/* LOADER */}
+        {loading && (
+          <div style={{ textAlign: "center", marginTop: "30px", fontSize: "18px" }}>
+            ⏳ Loading data, please wait...
+          </div>
+        )}
+
         {/* CHARTS */}
-        {showCharts && data.length > 0 && <ChartsSection data={data} />}
+        {showCharts && data.length > 0 && (
+          <div ref={chartsRef}>
+            <ChartsSection data={data} />
+          </div>
+        )}
 
         {/* AI MODAL */}
         {showAI && (
           <GeminiChat
-            summaryData={summaryData}
+            summaryData={{
+              state: stateName || "All",
+              district: districtName || "All",
+              totalRecords: data.length,
+            }}
             onClose={() => setShowAI(false)}
           />
         )}
 
         {/* SUMMARY */}
-        {data.length > 0 && (
-          <div className="summary">
+        {!loading && data.length > 0 && (
+          <div className="summary" ref={summaryRef}>
             Showing {startIndex + 1}–
-            {Math.min(startIndex + rowsPerPage, data.length)} of {data.length} entries
+            {Math.min(startIndex + rowsPerPage, data.length)} of {data.length}
           </div>
         )}
 
         {/* TABLE */}
-        {data.length > 0 && (
+        {!loading && data.length > 0 && (
           <>
             <div className="table-wrapper">
               <table>
@@ -281,21 +316,29 @@ function App() {
               </table>
             </div>
 
-            <div className="pagination">
-              <button
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage(currentPage - 1)}
-              >
-                Previous
-              </button>
-              <span>Page {currentPage} of {totalPages}</span>
-              <button
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage(currentPage + 1)}
-              >
-                Next
-              </button>
-            </div>
+            {totalPages > 1 && (
+              <div className="pagination">
+                <button
+                  onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                  disabled={currentPage === 1}
+                >
+                  ◀ Previous
+                </button>
+
+                <span>
+                  Page {currentPage} of {totalPages}
+                </span>
+
+                <button
+                  onClick={() =>
+                    setCurrentPage((p) => Math.min(p + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                >
+                  Next ▶
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>

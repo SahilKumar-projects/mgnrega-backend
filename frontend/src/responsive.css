@@ -1,21 +1,38 @@
-/* ===============================
-   RESPONSIVE DESIGN
-================================ */
+/* ======================================================
+   RESPONSIVE DESIGN — ALL DEVICES
+====================================================== */
 
-@media (max-width: 1024px) {
+/* ---------- LARGE SCREENS (4K / BIG MONITORS) ---------- */
+@media (min-width: 1600px) {
   .container {
-    padding: 0 16px;
+    max-width: 1600px;
+    margin: auto;
   }
 
-  table {
-    min-width: 900px;
+  body {
+    font-size: 18px;
   }
 }
 
-@media (max-width: 768px) {
+/* ---------- LAPTOPS ---------- */
+@media (max-width: 1200px) {
+  .filter-card {
+    gap: 16px;
+  }
+
+  table {
+    min-width: 1200px;
+  }
+}
+
+/* ---------- TABLETS ---------- */
+@media (max-width: 992px) {
   .navbar {
-    flex-direction: column;
-    gap: 12px;
+    padding: 16px 20px;
+  }
+
+  .navbar .brand {
+    font-size: 22px;
   }
 
   .filter-card {
@@ -23,13 +40,78 @@
     align-items: stretch;
   }
 
+  .filter-group select {
+    width: 100%;
+  }
+
+  .hero h2 {
+    font-size: 26px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  table {
+    min-width: 1000px;
+  }
+}
+
+/* ---------- SMALL TABLETS / LARGE MOBILES ---------- */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .navbar button {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .hero {
+    padding: 24px;
+  }
+
+  .hero h2 {
+    font-size: 22px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .dashboard {
+    padding: 16px;
+  }
+
+  .summary {
+    font-size: 15px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  table {
+    min-width: 900px;
+  }
+
+  /* AI Modal */
   .ai-modal {
     width: 95%;
     height: 80vh;
   }
 }
 
-@media (max-width: 480px) {
+/* ---------- MOBILE DEVICES ---------- */
+@media (max-width: 576px) {
   body {
     font-size: 14px;
   }
@@ -38,7 +120,57 @@
     font-size: 18px;
   }
 
+  .navbar button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .filter-card button {
+    width: 100%;
+  }
+
+  .hero {
+    padding: 18px;
+  }
+
+  .hero h2 {
+    font-size: 20px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 800px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
   .ai-message {
+    font-size: 14px;
+  }
+}
+
+/* ---------- VERY SMALL DEVICES ---------- */
+@media (max-width: 420px) {
+  body {
+    font-size: 13px;
+  }
+
+  .hero h2 {
+    font-size: 18px;
+  }
+
+  .summary {
     font-size: 14px;
   }
 }

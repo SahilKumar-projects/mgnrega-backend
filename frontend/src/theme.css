@@ -17,7 +17,7 @@
   --light-blue: #1e3a8a;
 }
 
-/* ===============================
+/* =============================
    GLOBAL
 ================================ */
 html, body {
@@ -51,16 +51,16 @@ body {
 }
 
 .navbar .brand {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 800;
 }
 
 .navbar button {
   background: #fff;
   color: var(--primary-blue);
   border: none;
-  padding: 8px 18px;
-  border-radius: 20px;
+  padding: 10px 20px;
+  border-radius: 24px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
@@ -72,8 +72,8 @@ body {
 .hero {
   background: var(--light-blue);
   padding: 28px;
-  border-radius: 0 0 16px 16px;
-  margin-bottom: 20px;
+  border-radius: 0 0 18px 18px;
+  margin-bottom: 22px;
 }
 
 .hero h2 {
@@ -83,7 +83,7 @@ body {
 }
 
 .hero p {
-  font-size: 16px;
+  font-size: 17px;
   opacity: 0.9;
 }
 
@@ -101,7 +101,7 @@ body {
    DASHBOARD
 ================================ */
 .dashboard {
-  padding: 24px;
+  padding: 20px;
 }
 
 /* ===============================
@@ -110,9 +110,9 @@ body {
 .filter-card {
   background: var(--card-bg);
   padding: 20px;
-  border-radius: 14px;
+  border-radius: 16px;
   display: flex;
-  gap: 18px;
+  gap: 16px;
   flex-wrap: wrap;
   align-items: flex-end;
   box-shadow: 0 4px 14px rgba(0,0,0,0.08);
@@ -132,7 +132,7 @@ body {
 
 .filter-card select {
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid #cfd4da;
   min-width: 200px;
   font-size: 15px;
@@ -142,8 +142,8 @@ body {
    BUTTONS
 ================================ */
 .filter-card button {
-  padding: 12px 22px;
-  border-radius: 10px;
+  padding: 12px 24px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
   font-size: 15px;
@@ -158,6 +158,7 @@ body {
 .reset-btn {
   background-color: #6b7280;
   color: #ffffff;
+  opacity: 1;
 }
 
 .reset-btn:hover {
@@ -185,10 +186,10 @@ button:disabled {
 .summary {
   background: var(--card-bg);
   padding: 12px 16px;
-  border-radius: 10px;
+  border-radius: 12px;
   margin: 14px 0 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -212,15 +213,15 @@ th {
   background: var(--primary-blue);
   color: #fff;
   padding: 12px;
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 17px;
+  font-weight: 800;
   text-align: left;
 }
 
 td {
   padding: 12px;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -229,7 +230,7 @@ tr:hover {
 }
 
 /* ===============================
-   DARK MODE TABLE
+   DARK MODE TABLE FIX
 ================================ */
 .dark th {
   background-color: #1e40af;
@@ -253,21 +254,29 @@ tr:hover {
   justify-content: center;
   align-items: center;
   gap: 14px;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .pagination button {
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
   background: var(--primary-blue);
   color: #fff;
   border: none;
   cursor: pointer;
 }
 
-/* ===============================
-   AI MODAL (CHATGPT STYLE)
-================================ */
+
+.dark .summary {
+  color: #f1f5f9;
+}
+
+.dark .hero h2,
+.dark .hero p {
+  color: #f1f5f9;
+}
+
+
 .ai-modal-overlay {
   position: fixed;
   inset: 0;
@@ -280,7 +289,7 @@ tr:hover {
 
 .ai-modal {
   background: var(--card-bg);
-  width: 520px;
+  width: 560px;
   max-width: 95%;
   height: 70vh;
   border-radius: 16px;
@@ -289,7 +298,6 @@ tr:hover {
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
 }
 
-/* HEADER */
 .ai-header {
   background: var(--primary-blue);
   color: #fff;
@@ -301,7 +309,7 @@ tr:hover {
 
 .ai-header h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
 }
 
@@ -313,7 +321,6 @@ tr:hover {
   cursor: pointer;
 }
 
-/* CHAT BODY */
 .ai-chat-body {
   flex: 1;
   padding: 16px;
@@ -321,10 +328,9 @@ tr:hover {
   background: var(--bg-color);
 }
 
-/* CHAT BUBBLES */
 .ai-message {
   max-width: 80%;
-  padding: 10px 14px;
+  padding: 12px 14px;
   margin-bottom: 12px;
   border-radius: 12px;
   font-size: 15px;
@@ -347,15 +353,13 @@ tr:hover {
   color: #f8fafc;
 }
 
-/* PLACEHOLDER */
 .ai-placeholder {
   text-align: center;
   color: #6b7280;
-  margin-top: 40px;
+  margin-top: 32px;
   font-size: 15px;
 }
 
-/* INPUT AREA */
 .ai-input-area {
   display: flex;
   gap: 10px;
@@ -365,52 +369,55 @@ tr:hover {
 
 .ai-input-area input {
   flex: 1;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 12px;
+  border-radius: 10px;
   border: 1px solid #cbd5e1;
   font-size: 15px;
 }
 
 .ai-input-area button {
-  padding: 10px 16px;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: 10px;
   background: var(--accent-yellow);
   border: none;
   font-weight: 700;
   cursor: pointer;
-  font-size: 14px;
 }
 
-/* ERROR */
 .ai-error {
   color: red;
-  padding: 6px 14px;
+  padding: 8px 14px;
   font-size: 15px;
 }
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-/* ===============================
-   RESPONSIVE
-================================ */
-@media (max-width: 768px) {
-  body {
-    font-size: 15px;
-  }
 
-  .filter-card {
-    flex-direction: column;
-    align-items: stretch;
-  }
+.navbar button {
+  transition: all 0.2s ease-in-out;
+}
 
-  table {
-    min-width: 900px;
-  }
 
-  .ai-modal {
-    width: 95%;
-    height: 80vh;
-  }
+.navbar button:hover {
+  background-color: #e6edff; 
+  transform: translateY(-1px);
+}
 
-  .navbar .brand {
-    font-size: 20px;
-  }
+
+.navbar button:active {
+  transform: translateY(0);
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.navbar button:focus-visible {
+  outline: 2px solid var(--accent-yellow);
+  outline-offset: 3px;
+}
+
+.navbar {
+  background-color: rgba(11, 94, 215, 0.95);
+  backdrop-filter: blur(6px);
 }
