@@ -42,7 +42,7 @@ function GeminiChat({ summaryData, onClose }) {
         throw new Error(data.error || "AI request failed");
       }
 
-      // Replace "Thinking..." message with actual AI response
+
       setMessages((prev) => [
         ...prev.slice(0, -1),
         { role: "ai", text: data.answer },

@@ -1,6 +1,4 @@
-/* ===============================
-   ROOT THEMES
-================================ */
+
 :root {
   --primary-blue: #0b5ed7;
   --light-blue: #e7f1ff;
@@ -17,9 +15,7 @@
   --light-blue: #1e3a8a;
 }
 
-/* =============================
-   GLOBAL
-================================ */
+
 html, body {
   width: 100%;
   margin: 0;
@@ -30,7 +26,7 @@ body {
   font-family: "Segoe UI", Roboto, Arial, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-dark);
-  font-size: 16px; /* reduced */
+  font-size: 16px; 
 }
 
 #root,
@@ -38,9 +34,7 @@ body {
   width: 100%;
 }
 
-/* ===============================
-   NAVBAR
-================================ */
+
 .navbar {
   background-color: var(--primary-blue);
   color: #fff;
@@ -66,9 +60,7 @@ body {
   font-weight: 600;
 }
 
-/* ===============================
-   HERO
-================================ */
+
 .hero {
   background: var(--light-blue);
   padding: 28px;
@@ -87,9 +79,7 @@ body {
   opacity: 0.9;
 }
 
-/* ===============================
-   CONTAINER
-================================ */
+
 .container {
   width: 100%;
   max-width: 1400px;
@@ -97,16 +87,12 @@ body {
   margin-right: auto;
 }
 
-/* ===============================
-   DASHBOARD
-================================ */
+
 .dashboard {
   padding: 20px;
 }
 
-/* ===============================
-   FILTER CARD
-================================ */
+
 .filter-card {
   background: var(--card-bg);
   padding: 20px;
@@ -138,9 +124,7 @@ body {
   font-size: 15px;
 }
 
-/* ===============================
-   BUTTONS
-================================ */
+
 .filter-card button {
   padding: 12px 24px;
   border-radius: 12px;
@@ -170,9 +154,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* ===============================
-   ERROR
-================================ */
+
 .error {
   color: #dc2626;
   margin-bottom: 12px;
@@ -180,9 +162,7 @@ button:disabled {
   font-size: 15px;
 }
 
-/* ===============================
-   SUMMARY
-================================ */
+
 .summary {
   background: var(--card-bg);
   padding: 12px 16px;
@@ -193,9 +173,7 @@ button:disabled {
   font-weight: 600;
 }
 
-/* ===============================
-   TABLE
-================================ */
+
 .table-wrapper {
   overflow-x: auto;
   margin-top: 10px;
@@ -229,9 +207,7 @@ tr:hover {
   background: rgba(0,0,0,0.04);
 }
 
-/* ===============================
-   DARK MODE TABLE FIX
-================================ */
+
 .dark th {
   background-color: #1e40af;
 }
@@ -245,9 +221,6 @@ tr:hover {
   background: rgba(255,255,255,0.05);
 }
 
-/* ===============================
-   PAGINATION
-================================ */
 .pagination {
   margin-top: 20px;
   display: flex;
